@@ -30,7 +30,7 @@ dependencies {
 kotlin {
     @Suppress("UnstableApiUsage")
     jvmToolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(11)
         vendor = JvmVendorSpec.JETBRAINS
     }
 }
@@ -115,9 +115,9 @@ tasks {
     }
 
     signPlugin {
-        certificateChain = environment("CERTIFICATE_CHAIN")
-        privateKey = environment("PRIVATE_KEY")
-        password = environment("PRIVATE_KEY_PASSWORD")
+        certificateChain = file("c:/Users/user/.ssh/id_rsa-chain.crt").readText()
+        privateKey = file("c:/Users/user/.ssh/id_rsa").readText()
+        password = ""
     }
 
     publishPlugin {
@@ -129,3 +129,4 @@ tasks {
         channels = properties("pluginVersion").map { listOf(it.split('-').getOrElse(1) { "default" }.split('.').first()) }
     }
 }
+//
