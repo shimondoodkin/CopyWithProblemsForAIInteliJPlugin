@@ -46,7 +46,8 @@ class CopyWithProblems : AnAction() {
                 val description = highlightInfo.description
                 // Only process non-null descriptions and meaningful severities
                 if (description != null && severity != "SYMBOL_TYPE_SEVERITY") {
-                    val errorDescription = "$severity: $description"
+                    val descriptionNoBr=description.replace("\r\n","   ").replace("\r","   ").replace("\n","   ")
+                    val errorDescription = "$severity: $descriptionNoBr"
                     lineErrors.computeIfAbsent(line) { ArrayList() }.add(errorDescription)
                 }
                 true  // Continue processing highlights
