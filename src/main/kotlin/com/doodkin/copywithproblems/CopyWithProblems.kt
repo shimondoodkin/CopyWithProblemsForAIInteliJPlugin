@@ -45,7 +45,7 @@ class CopyWithProblems : AnAction() {
                 val severity = highlightInfo.severity.myName
                 val description = highlightInfo.description
                 // Only process non-null descriptions and meaningful severities
-                if (description != null && severity != "SYMBOL_TYPE_SEVERITY") {
+                if (description != null && severity != "SYMBOL_TYPE_SEVERITY" && severity != "INFORMATION") {
                     val descriptionNoBr=description.replace("\r\n","   ").replace("\r","   ").replace("\n","   ")
                     val errorDescription = "$severity: $descriptionNoBr"
                     lineErrors.computeIfAbsent(line) { ArrayList() }.add(errorDescription)
@@ -66,7 +66,7 @@ class CopyWithProblems : AnAction() {
                 )
                 resultBuffer.append(lineText)
                 lineErrors[line]?.let {
-                    resultBuffer.append(" // ").append(it.joinToString(" ; "))
+                    resultBuffer.append(" // ").append(it.asReversed().joinToString(" ; "))
                 }
                 resultBuffer.append('\n')
             }
